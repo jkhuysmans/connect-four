@@ -66,11 +66,15 @@ class ConnectFour
     end
 
     def player_win?(piece)
-        @board.any? { |row| row.join.include?(piece * 4) } ||
-        (0..6).any? { |col| @board.map { |row| row[col] }.join.include?(piece * 4) }
-
-        diagonal_check(piece)
+        horizontal_win = @board.any? { |row| row.join.include?(piece * 4) }
+        vertical_win = (0..6).any? { |col| @board.map { |row| row[col] }.join.include?(piece * 4) }
+    
+        return true if horizontal_win || vertical_win
+        return true if diagonal_check(piece)
+    
+        false
     end
+    
 
     def diagonal_check(piece)
      
